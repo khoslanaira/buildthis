@@ -7,7 +7,7 @@ Vercel Cron (7am UTC daily)
   → /api/cron
     → Claude API scans 9 profession-specific subreddits
     → Verifies no existing solution exists
-    → Saves to Notion DB
+    → Saves to DB
     → Sends daily digest email via Resend to all subscribers
   
 User visits buildthis.dev
@@ -29,8 +29,7 @@ npm run dev   # → http://localhost:3000
 
 | Variable | Where to get it | Required |
 |---|---|---|
-| `NOTION_TOKEN` | notion.so/my-integrations → New integration | ✅ |
-| `NOTION_DATABASE_ID` | Already set: `fcdb38712dfd4fb6a0b95e64c66c224b` | ✅ |
+
 | `RESEND_API_KEY` | resend.com → Free account → API Keys | ✅ |
 | `DIGEST_FROM_EMAIL` | A verified email/domain on Resend | ✅ |
 | `ANTHROPIC_API_KEY` | console.anthropic.com → API Keys | ✅ (for cron) |
@@ -85,32 +84,4 @@ curl -H "Authorization: Bearer your_cron_secret" \
   http://localhost:3000/api/cron
 ```
 
-## CV / LinkedIn Description
 
-**BuildThis — AI-Powered Startup Problem Discovery Platform**
-- Built a full-stack Next.js platform with Vercel Cron that automatically scans 9 tech-specific Reddit communities every morning using the Claude API
-- Implemented per-profession problem filtering across 9 tech roles, each sourced from role-specific subreddits with AI verification of no existing solution
-- Integrated Notion API as a live backend, Resend for transactional email, and Next.js ISR for performance
-- Built complete newsletter system: subscriber management, welcome emails, and daily digest with per-stack filtering
-
-## File Structure
-
-```
-buildthis/
-├── app/
-│   ├── api/
-│   │   ├── cron/route.ts        ← Vercel cron: scans Reddit + sends emails
-│   │   ├── problems/route.ts    ← Fetches all problems from Notion
-│   │   └── subscribe/route.ts   ← Saves subscriber + sends welcome email
-│   ├── globals.css
-│   ├── layout.tsx
-│   └── page.tsx                 ← Server renders with Notion data
-├── components/
-│   └── BuildThisApp.tsx         ← Full UI (landing, problems, modals)
-├── lib/
-│   ├── notion.ts                ← Notion client + fetch/save
-│   ├── email.ts                 ← Resend: welcome + daily digest
-│   └── subscribers.ts          ← Subscriber store (JSON file MVP)
-├── vercel.json                  ← Cron schedule (7am UTC daily)
-└── .env.local.example           ← All required env vars
-```
