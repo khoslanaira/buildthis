@@ -1,6 +1,7 @@
 # BuildThis 🔍
 > Real unsolved startup problems from Reddit, filtered by your tech role. Auto-updated every morning via Vercel Cron.
 
+![Demo Screenshot](./assets/buildthiss.png)
 ## Architecture
 ```
 Vercel Cron (7am UTC daily)
